@@ -1,0 +1,45 @@
+<div class="container">
+	<div class="row">
+		<form action="/asignatura/c">
+			<input type="submit" value="Nueva asignatura" />
+		</form>
+
+		<form action="/">
+			<input type="submit" value="Volver" />
+		</form>
+	</div>
+
+	<h3>Lista de asignaturas</h3>
+
+	<table class="table table-striped">
+		<tr>
+			<th>
+				Nombre
+			</th>
+			<th>
+				Acciones
+			</th>
+		</tr>
+
+		<tr th:each="asignatura:${asignaturas} ">
+			<td th:text="${asignatura.nombre}" />
+			<td class="row">
+				<form action="/asignatura/u">
+					<button onclick="submit">
+						<img src="/img/lapiz.png" height="20" width="20"/>
+					</button>
+					<input type="hidden" name="idAsignatura" th:value="${asignatura.id}"/>
+				</form>
+				<form action="/asignatura/d" method="post">
+					<button onclick="submit">
+						<img src="/img/basura.png" height="20" width="20"/>
+					</button>
+					<input type="hidden" name="idAsignatura" th:value="${asignatura.id}"/>
+				</form>
+			</td>
+		</tr>
+	</table>
+	<br />
+
+
+</div>
