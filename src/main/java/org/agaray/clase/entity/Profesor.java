@@ -1,5 +1,6 @@
 package org.agaray.clase.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -16,8 +17,10 @@ public class Profesor extends Usuario {
 
 	public Profesor(String dni, String nombre, String apellido, String password) {
 		super(dni,nombre,apellido,password);
+		this.asignaturas = new ArrayList<>();
 	}
 	public Profesor() {
+		this.asignaturas = new ArrayList<>();
 	}
 	//==========================
 	public Collection<Asignatura> getAsignaturas() {
