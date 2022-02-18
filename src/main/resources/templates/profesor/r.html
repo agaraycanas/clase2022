@@ -1,0 +1,63 @@
+<div class="container">
+	<div class="row">
+		<form action="/profesor/c">
+			<input type="submit" value="Nuevo profesor" />
+		</form>
+
+		<form action="/">
+			<input type="submit" value="Volver" />
+		</form>
+	</div>
+
+	<h3>Lista de profesores</h3>
+
+	<table class="table table-striped">
+		<tr>
+			<th>
+				DNI
+			</th>
+
+			<th>
+				Nombre
+			</th>
+			<th>
+				Apellido
+			</th>
+			<th>
+				Asignaturas
+			</th>
+			<th>
+				Acciones
+			</th>
+		</tr>
+
+
+		<tr th:each="profesor:${profesores} ">
+			<td th:text="${profesor.dni}" />
+			<td th:text="${profesor.nombre}" />
+			<td th:text="${profesor.apellido}" />
+			<td>
+				<th:block th:each="asignatura:${profesor.asignaturas}" th:text="|${asignatura.nombre} |"/>
+			</td>
+			
+			<td class="row">
+				<form action="/profesor/u">
+					<button onclick="submit">
+						<img src="/img/lapiz.png" height="20" width="20"/>
+					</button>
+					<input type="hidden" name="idProfesor" th:value="${profesor.id}"/>
+				</form>
+				<form action="/profesor/d" method="post">
+					<button onclick="submit">
+						<img src="/img/basura.png" height="20" width="20"/>
+					</button>
+					<input type="hidden" name="idProfesor" th:value="${profesor.id}"/>
+				</form>
+			</td>
+		</tr>
+
+	</table>
+	<br />
+
+
+</div>

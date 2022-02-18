@@ -23,7 +23,7 @@ public abstract class Usuario {
 	public Usuario() {
 	}
 	
-	public Usuario(String dni, String nombre, String apellido, String password) {
+	public Usuario(String dni, String password, String nombre, String apellido) {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;

@@ -3,6 +3,7 @@ package org.agaray.clase.entity;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
@@ -10,13 +11,13 @@ import javax.persistence.OneToMany;
 public class Profesor extends Usuario {
 	
 	
-	@OneToMany(mappedBy = "profesor")
+	@OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL)
 	private Collection<Asignatura> asignaturas;
 	
 	//==========================
 
-	public Profesor(String dni, String nombre, String apellido, String password) {
-		super(dni,nombre,apellido,password);
+	public Profesor(String dni, String password, String nombre, String apellido) {
+		super(dni,password,nombre,apellido);
 		this.asignaturas = new ArrayList<>();
 	}
 	public Profesor() {
