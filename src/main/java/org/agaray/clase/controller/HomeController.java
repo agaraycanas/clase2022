@@ -2,6 +2,9 @@ package org.agaray.clase.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.agaray.clase.exception.DangerException;
+import org.agaray.clase.helper.H;
+import org.agaray.clase.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	@GetMapping("/info")
 	public String info(
@@ -34,8 +40,7 @@ public class HomeController {
 		m.put("view", "/_t/info");
 		return "/_t/frame";
 	}
-
-	/*
+	
 	@GetMapping("/login")
 	public String login(
 			ModelMap m,
@@ -46,18 +51,14 @@ public class HomeController {
 	}
 
 	@PostMapping("/login")
-	public String loginPost(@RequestParam("nombre") String nombre, @RequestParam("pwd") String pwd, HttpSession s) {
+	public String loginPost(@RequestParam("nombre") String dni, @RequestParam("pwd") String pwd, HttpSession s) {
 		String returnLocation = "redirect:/";
 		try {
-			Persona persona = personaRepository.getByNombre(nombre);
-			if (new BCryptPasswordEncoder().matches(pwd, persona.getPwd())) {
-				s.setAttribute("persona", persona);
-			}
-			else {
-				returnLocation="redirect:/errorDisplay?msg=Password incorrecta";
-			}
+			String dniLogin=null;
+			String pwdLogin=null;
+			usuarioService.login(dni,pwd,dniLogin,pwdLogin);
 		} catch (Exception e) {
-			returnLocation="redirect:/errorDisplay?msg=Usuario incorrecto";
+			
 		}
 		return returnLocation;
 	}
@@ -68,7 +69,7 @@ public class HomeController {
 		s.invalidate();
 		return "redirect:/";
 	}
-*/
+
 	@GetMapping("/")
 	public String index(ModelMap m) {
 		m.put("view", "home/index");
