@@ -91,6 +91,10 @@ public class Asignatura {
 		this.profesor = profesor;
 		profesor.getAsignaturas().add(this);
 	}
+	public void addAlumno(Alumno alumno) {
+		this.alumnos.add(alumno);
+		alumno.getAsignaturas().add(this);
+	}
 
 
 }
