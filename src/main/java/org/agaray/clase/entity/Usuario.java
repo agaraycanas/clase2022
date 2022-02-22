@@ -74,6 +74,15 @@ public abstract class Usuario {
 	
 	//==============================
 
-	
+	public String getRol() {
+		String sol="DESCONOCIDO";
+		if (this instanceof Alumno) {
+			sol="alumno";
+		}
+		if (this instanceof Profesor) {
+			sol="profesor";
+		}
+		return sol;
+	}
 	
 }

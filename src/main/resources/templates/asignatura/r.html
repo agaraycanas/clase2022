@@ -16,6 +16,11 @@
 			<th>
 				Nombre
 			</th>
+			
+			<th>
+				Impartida por
+			</th>
+			
 			<th>
 				Acciones
 			</th>
@@ -23,6 +28,9 @@
 
 		<tr th:each="asignatura:${asignaturas} ">
 			<td th:text="|${asignatura.nombre} (${asignatura.alumnos.size()})|" />
+
+			<td th:text="${asignatura.profesor?.nombre}" />
+			
 			<td class="row">
 				<form action="/asignatura/u">
 					<button onclick="submit">

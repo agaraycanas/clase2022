@@ -1,0 +1,22 @@
+<div class="container">
+	<h1>Selecciona asignatura</h1>
+	<table>
+		<tr>
+			<th>Asignatura</th>
+			<th>Acción</th>
+		</tr>
+		
+		<tr th:each="asignatura:${asignaturas}">
+			<td th:text="${asignatura.nombre}"/>
+			<td>
+				<form action="/nota/c02">
+					<input type="hidden" name="idAsignatura" th:value="${asignatura.id}"/>
+					<button onclick="submit">
+						<img src="/img/flecha.png" height="20" width="20"/>
+					</button>
+				<form>
+			</td>
+				
+		</tr>
+	</table>
+</div>

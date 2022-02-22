@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class Profesor extends Usuario {
 	
 	
-	@OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Collection<Asignatura> asignaturas;
 	
 	//==========================

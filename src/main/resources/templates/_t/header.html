@@ -1,10 +1,11 @@
 <header class="container">
-	<a th:if="${session.persona==null}" href="/login">
+	<a th:if="${session.usuario==null}" href="/login">
 		LOGIN
 	</a>
 	
-	<div th:unless="${session.persona==null}">
-		<span th:text="${session.persona.nombre}"/>
+	<div th:unless="${session.usuario==null}">
+		<th:block th:text="${session.usuario.nombre}"/>
+		(<th:block th:text="${session.usuario.getRol()}"/>)
 		/
 		<a href="/logout">LOGOUT</a>
 	</div>
