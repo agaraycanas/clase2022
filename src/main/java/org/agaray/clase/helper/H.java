@@ -13,6 +13,7 @@ public class H {
 		 */
 		public static void isRolOK(String rolExigido, HttpSession s) throws DangerException {
 			String rolActual = "anon";
+			/*
 			if (s.getAttribute("persona") != null) {
 				//rolActual = ((Persona)s.getAttribute("persona")).getRol()!="admin" ? "auth" : "admin";
 			}
@@ -27,6 +28,7 @@ public class H {
 			if ((rolActual!="anon" ) && rolExigido=="anon") {
 				throw new DangerException("Rol inadecuado");
 			}
+			*/
 	}
 
 }

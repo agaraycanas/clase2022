@@ -13,7 +13,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 public class Asignatura {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +33,8 @@ public class Asignatura {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Profesor profesor;
-	
+
+	@JsonIgnore
 	@ManyToMany(mappedBy = "asignaturas")
 	private Collection<Alumno> alumnos;
 	// ==============================

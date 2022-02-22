@@ -1,6 +1,8 @@
 package org.agaray.clase.service;
 
 import org.agaray.clase.entity.Usuario;
+import org.agaray.clase.exception.DangerException;
+import org.agaray.clase.exception.PRG;
 import org.agaray.clase.repository.AlumnoRepository;
 import org.agaray.clase.repository.ProfesorRepository;
 import org.agaray.clase.repository.UsuarioRepository;
@@ -17,18 +19,22 @@ public class UsuarioService {
 	@Autowired
 	private ProfesorRepository profesorRepository;
 	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
-	public void login(String dni, String pwd, String nombreLogin, String pwdLogin) {
-		Usuario usuario = null;
-		
-		/*
-		if (new BCryptPasswordEncoder().matches(pwd, usuario.getPwd())) {
-			s.setAttribute("persona", usuario);
-		} else {
-			returnLocation = "redirect:/errorDisplay?msg=Password incorrecta";
+	
+	public Usuario login(String dni, String password) throws Exception {
+		Usuario usuario=null;
+		try {
+			usuario = usuarioRepository.getByDni(dni);
 		}
-		*/
-
+		catch (Exception e) {
+			throw new Exception("Usuario incorrecto");
+		}
+		
+		if (!(new BCryptPasswordEncoder().matches(password, usuario.getPassword()))) {
+			throw new Exception("Contraseña incorrecta");
+		}
+		return usuario;
 	}
-
 }

@@ -22,7 +22,7 @@
 		</tr>
 
 		<tr th:each="asignatura:${asignaturas} ">
-			<td th:text="${asignatura.nombre}" />
+			<td th:text="|${asignatura.nombre} (${asignatura.alumnos.size()})|" />
 			<td class="row">
 				<form action="/asignatura/u">
 					<button onclick="submit">

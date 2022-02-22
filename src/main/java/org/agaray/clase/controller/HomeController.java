@@ -2,7 +2,9 @@ package org.agaray.clase.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.agaray.clase.entity.Usuario;
 import org.agaray.clase.exception.DangerException;
+import org.agaray.clase.exception.PRG;
 import org.agaray.clase.helper.H;
 import org.agaray.clase.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@GetMapping("/info")
-	public String info(
-			HttpSession s,
-			ModelMap m
-			) {
+	public String info(HttpSession s, ModelMap m) {
 		String mensaje = s.getAttribute("_mensaje") != null ? (String) s.getAttribute("_mensaje")
 				: "Pulsa para volver a home";
 		String severity = s.getAttribute("_severity") != null ? (String) s.getAttribute("_severity") : "info";
@@ -40,32 +39,30 @@ public class HomeController {
 		m.put("view", "/_t/info");
 		return "/_t/frame";
 	}
-	
+
 	@GetMapping("/login")
-	public String login(
-			ModelMap m,
-			HttpSession s) throws DangerException {
+	public String login(ModelMap m, HttpSession s) throws DangerException {
 		H.isRolOK("anon", s);
 		m.put("view", "home/login");
 		return "_t/frame";
 	}
 
 	@PostMapping("/login")
-	public String loginPost(@RequestParam("nombre") String dni, @RequestParam("pwd") String pwd, HttpSession s) {
-		String returnLocation = "redirect:/";
+	public String loginPost(
+			@RequestParam("dni") String dni, 
+			@RequestParam("password") String password, 
+			HttpSession s) throws DangerException {
 		try {
-			String dniLogin=null;
-			String pwdLogin=null;
-			usuarioService.login(dni,pwd,dniLogin,pwdLogin);
+			Usuario usuario = usuarioService.login(dni, password);
+			s.setAttribute("usuario", usuario);
 		} catch (Exception e) {
-			
+			PRG.error(e.getMessage(),"/login");
 		}
-		return returnLocation;
+		return "redirect:/";
 	}
-	
+
 	@GetMapping("/logout")
-	public String logout(
-			HttpSession s) {
+	public String logout(HttpSession s) {
 		s.invalidate();
 		return "redirect:/";
 	}

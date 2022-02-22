@@ -34,4 +34,12 @@ public class AlumnoService {
 		return alumnoRepository.findAll();
 	}
 
+	public List<Alumno> findByApellido(String f) {
+		return alumnoRepository.findByApellidoOrderByNombre(f);
+	}
+
+	public List<Alumno> findByAsignatura(String f) {
+		return alumnoRepository.findByAsignaturasNombre(f);
+	}
+
 }

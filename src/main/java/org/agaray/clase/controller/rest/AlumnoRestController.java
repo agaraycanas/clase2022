@@ -1,10 +1,11 @@
-package org.agaray.clase.controller;
+package org.agaray.clase.controller.rest;
 
 import java.util.List;
 
 import org.agaray.clase.entity.Alumno;
 import org.agaray.clase.exception.DangerException;
 import org.agaray.clase.exception.PRG;
+import org.agaray.clase.repository.AlumnoRepository;
 import org.agaray.clase.service.AlumnoService;
 import org.agaray.clase.service.AsignaturaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping("/alumno")
-public class AlumnoController {
+@RestController
+@RequestMapping("/REST/alumno")
+public class AlumnoRestController {
 
 	@Autowired
 	private AsignaturaService asignaturaService;
@@ -25,11 +27,9 @@ public class AlumnoController {
 	@Autowired
 	private AlumnoService alumnoService;
 
-	@GetMapping("c")
-	public String c(ModelMap m) {
-		m.put("asignaturas", asignaturaService.findAll());
-		m.put("view", "alumno/c");
-		return "_t/frame";
+	@GetMapping("r")
+	public List<Alumno> r() {
+		return alumnoService.findAll();
 	}
 
 	@PostMapping("c")
@@ -45,19 +45,4 @@ public class AlumnoController {
 		return "redirect:/alumno/r";
 	}
 
-	@GetMapping("r")
-	public String r(
-			@RequestParam(value="f",required = false) String f,
-			ModelMap m) {
-		List<Alumno> alumnos = null;
-		if (f==null  || f.equals("") ) {
-			alumnos = alumnoService.findAll();
-		}
-		else {
-			alumnos = alumnoService.findByAsignatura(f);
-		}
-		m.put("alumnos", alumnos);
-		m.put("view", "alumno/r");
-		return "_t/frame";
-	}
 }

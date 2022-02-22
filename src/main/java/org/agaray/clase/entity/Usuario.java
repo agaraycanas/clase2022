@@ -6,7 +6,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "id")
 public abstract class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +35,7 @@ public abstract class Usuario {
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.password = password;
+		this.password = new BCryptPasswordEncoder().encode(password);
 	}
 
 
@@ -49,7 +57,7 @@ public abstract class Usuario {
 		return password;
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = new BCryptPasswordEncoder().encode(password);
 	}
 	public String getNombre() {
 		return nombre;
